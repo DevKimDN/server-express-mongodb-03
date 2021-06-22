@@ -5,9 +5,10 @@
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "joi": "^17.4.0",
+    "joi": "14.3.1",
     "jwt-simple": "^0.5.6",
     "mongoose": "^5.12.14",
     "nodemailer": "^6.6.2",

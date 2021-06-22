@@ -26,6 +26,8 @@ const requireLogin = (req, res, next) => {
     passport.authenticate('local', {
         session: false
     }, (err, user, info) => {
+        console.log('have a login request')
+        
         if (err) {
             return next(err)
         }

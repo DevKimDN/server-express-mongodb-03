@@ -13,6 +13,7 @@ const db = {
             if (err) {
                // signale.fatal('Can\'t connect to mongoDB!', err)
             } else {
+                console.log('Successfully connected to mongoDB') 
                // signale.success('Successfully connected to mongoDB')
             }
         })

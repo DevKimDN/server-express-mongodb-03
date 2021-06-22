@@ -1,12 +1,13 @@
 //process.env.NODE_ENV = process.env.NODE_ENV || 'development'
-const db = require("./db");
+const db = require("./db")
 const port = parseInt(process.env.PORT || '3003')
-const express = require("express");
+const express = require("express")
+const cors = require('cors');
 //const path = require('path')
-const dotenv = require("dotenv").config();
+const dotenv = require("dotenv").config()
 //const cookieParser = require('cookie-parser')
 //const bodyParser = require('body-parser')
-const passport = require("passport");
+const passport = require("passport")
 //const webpack = require('webpack')
 //const webpackDevMiddleware = require('webpack-dev-middleware')
 //const webpackHotMiddleware = require('webpack-hot-middleware')
@@ -20,13 +21,17 @@ const passport = require("passport");
 //     })
 // }
 
-const { jwtLogin, localLogin } = require("./auth/auth-middleware");
+
+
+const { jwtLogin, localLogin } = require("./auth/auth-middleware")
+
 //const devConfig = require('../webpack.dev.js')
 
-const app = express();
+const app = express()
 //app.use(helmet())
 //app.use(logger('dev'))
-app.use(express.json()); //Body parser
+app.use(cors());
+app.use(express.json()) //Body parser
 
 // app.use(bodyParser.json())
 // app.use(bodyParser.urlencoded({
@@ -35,11 +40,11 @@ app.use(express.json()); //Body parser
 //app.use(cookieParser())
 
 // Apply passport middleware
-passport.use(jwtLogin);
-passport.use(localLogin);
+passport.use(jwtLogin)
+passport.use(localLogin)
 
 // Apply API Routes
-require("./routes")(app);
+require("./routes")(app)
 
 // if (process.env.NODE_ENV === 'development') {
 //     const compiler = webpack(devConfig)
@@ -89,43 +94,45 @@ require("./routes")(app);
 
 //app.set("port", port);
 
-const httpServer = require("http").createServer(app);
+const httpServer = require("http").createServer(app)
 
 
-const onListening = () => {
-    const addr = httpServer.address();
-    const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
+// const onListening = () => {
+//     const addr = httpServer.address();
+//     const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
   
-    //signale.success(`Server listening on ${bind}`);
-  };
+//     //signale.success(`Server listening on ${bind}`);
+//   };
   
-  const onError = (error) => {
-    if (error.syscall !== "listen") {
-      throw error;
-    }
+//   const onError = (error) => {
+//     if (error.syscall !== "listen") {
+//       throw error;
+//     }
   
-    const bind = typeof port === "string" ? `Pipe ${port}` : `Port ${port}`;
+//     const bind = typeof port === "string" ? `Pipe ${port}` : `Port ${port}`;
   
-    switch (error.code) {
-      case "EACCES":
-        //signale.fatal(`${bind} requires elevated privileges`);
+//     switch (error.code) {
+//       case "EACCES":
+//         //signale.fatal(`${bind} requires elevated privileges`);
   
-        process.exit(1);
-        break;
-      case "EADDRINUSE":
-        //signale.fatal(`${bind} is already in use`);
+//         process.exit(1);
+//         break;
+//       case "EADDRINUSE":
+//         //signale.fatal(`${bind} is already in use`);
   
-        process.exit(1);
-        break;
-      default:
-        throw error;
-    }
-  };
+//         process.exit(1);
+//         break;
+//       default:
+//         throw error;
+//     }
+//   };
 
 
-httpServer.listen(port);
-httpServer.on("error", onError);
-httpServer.on("listening", onListening);
+httpServer.listen(port)
+// httpServer.on("error", onError);
+// httpServer.on("listening", onListening);
 
 
-db.connect(process.env.MONGODB_URL);
+db.connect(process.env.MONGODB_URL)
+
+console.log(`Server start & login on port: ${port}`)
